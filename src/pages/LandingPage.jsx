@@ -51,7 +51,7 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
     return (
         <>
             <div>
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-6 flex items-center justify-between max-[900px]:flex-col gap-10 max-[900px]:items-start">
                     <div>
                         <h1 className="dark:text-white font-semibold text-2xl">List of digital currencies</h1>
                         <h2 className="text-gray-500">Price table of digital currency market leaders
@@ -77,7 +77,7 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
                 </div>
                 {isLoading ? null : error ? null :
                     <div
-                        className='text-xl flex items-center gap-4 [&>button]:border [&>button]:rounded-md [&>button]:py-1 [&>button]:px-2 my-5 justify-center '>
+                        className='text-xl flex items-center gap-4 [&>button]:border [&>button]:rounded-md [&>button]:py-1 [&>button]:px-2 my-6 justify-center '>
                         <button className='text-red-400 border-gray-500 dark:border-light-color'
                                 onClick={() => nextPageHandler("minus")}>prev
                         </button>

@@ -7,7 +7,7 @@ const CoinTable = ({coins, currencyUnit, currencyCode, isLoading, error, setData
 
     return (
         <div className='min-w-[1010px]'>
-            <ul className='grid grid-cols-4 my-6'>
+            <ul className='grid grid-cols-4 mb-6'>
                 <li>currency name</li>
                 <li>{`price (${currencyUnit})`}</li>
                 <li>Changes</li>

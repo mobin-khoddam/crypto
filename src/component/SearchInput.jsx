@@ -49,7 +49,7 @@ const SearchInput = ({currencyUnit, setDataHandler}) => {
     }
 
     return (
-        <div className='w-[280px] relative flex items-center'>
+        <div className='w-[280px] relative flex items-center my-10'>
             <input onKeyDown={(e) => openCloseHandler(e.key)} onChange={(e) => searchValueHandler(e.target.value)}
                    value={searchValue}
                    className='w-full text-sm p-2 rounded-md outline-[#F06292] text-dark-color' type="text"

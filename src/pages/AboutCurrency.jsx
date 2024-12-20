@@ -14,8 +14,8 @@ const AboutCurrency = ({data, currencyUnit, currencyCode}) => {
     return (
         <div className="flex justify-center items-center">
             <div
-                className="w-3/4 shadow-2xl shadow-black/20 rounded-lg dark:shadow-white/20 overflow-hidden text-center">
-                <div className="flex items-center p-4 bg-gradient-to-r from-blue-500 to-purple-600">
+                className="w-3/4 shadow-2xl shadow-black/20 rounded-lg dark:shadow-white/20 overflow-hidden text-center max-sm:w-11/12">
+                <div className="flex items-center p-4 bg-gradient-to-r from-blue-800 to-purple-600">
                     <img src={data.image} alt={data.name} className="w-16 h-16 rounded-full mr-4"/>
                     <div>
                         <h1 className="text-xl font-bold">
@@ -27,7 +27,7 @@ const AboutCurrency = ({data, currencyUnit, currencyCode}) => {
 
                 <div className="p-4">
                     <h2 className="text-lg font-semibold mb-2">Market Data</h2>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 max-[1070px]:grid-cols-1">
                         <p>
                             <span className="font-semibold">Current Price:</span> {currencyMaker(data.current_price)}
                         </p>
@@ -71,8 +71,8 @@ const AboutCurrency = ({data, currencyUnit, currencyCode}) => {
 
                 <div className="p-4 bg-gray-100 text-gray-700">
                     <h2 className="text-lg font-semibold mb-2">Additional Information</h2>
-                    <div className='flex items-center justify-between'>
-                        <div className='w-fit overflow-x-auto pr-4'>
+                    <div className='flex items-center justify-between gap-4 max-lg:flex-col'>
+                        <div className='max-lg:w-full overflow-x-auto pr-4 flex justify-center items-start'>
                             <Chart bigChart={true} data={data.sparkline_in_7d.price.slice(-100)}
                                    profitColor={isProfit.style} width={350}
                                    height={130}/>
