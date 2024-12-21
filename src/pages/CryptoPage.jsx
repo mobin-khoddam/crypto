@@ -1,17 +1,21 @@
 import CoinTable from "../component/CoinTable.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import SearchInput from "../component/SearchInput.jsx";
 import {useTranslation} from "react-i18next";
 import {useCryptoApi} from "../api/useCryptoApi.js";
+import {useLocation, useNavigate} from "react-router-dom";
+import {DataProvider} from "../contextApi/provider.js";
 
 
+const CryptoPage = () => {
+    const {setDataHandler, currencyUnitHandler, currencyUnit, currencyCode} = useContext(DataProvider)
 
-const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currencyCode}) => {
-    const [currentPage, setCurrentPage] = useState(localStorage.getItem("page") || 1);
+    const [currentPage, setCurrentPage] = useState( useLocation().pathname.split('/')[2] || 1);
 
     const {data: coins, error, isLoading} = useCryptoApi(currencyUnit, currentPage);
-
-
+    const location = useLocation().pathname.split('/')
+    console.log(location)
+    const navigate = useNavigate();
     const currencyUnitData = [
         {id: 3, unit: 'usd', code: 'en-US', text: 'US currency'},
         {id: 1, unit: 'gbp', code: 'en-GB', text: 'British currency'},
@@ -19,14 +23,14 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
     ];
 
     const nextPageHandler = (newPage) => {
-        if (newPage === "plus" ) {
+        if (newPage === "plus") {
             const nextPage = +currentPage + 1
             setCurrentPage(nextPage)
-            localStorage.setItem("page", nextPage.toString())
+            navigate(`/page/${nextPage}`)
         } else if (newPage === "minus" && +currentPage !== 1) {
             const prevPage = +currentPage - 1;
             setCurrentPage(prevPage)
-            localStorage.setItem("page", prevPage.toString())
+            navigate(`/page/${prevPage}`)
         }
     }
 
@@ -34,7 +38,8 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
     return (
         <>
             <div>
-                <div className="mb-6 flex items-center justify-between max-[900px]:flex-col gap-10 max-[900px]:items-start">
+                <div
+                    className="mb-6 flex items-center justify-between max-[900px]:flex-col gap-10 max-[900px]:items-start">
                     <div>
                         <h1 className="dark:text-white font-semibold text-2xl">{t("title")}</h1>
                         <h2 className="text-gray-500">{t("subTitle")}</h2>
@@ -44,7 +49,7 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
                         {currencyUnitData.map(unitData => (
                             <button
                                 key={unitData.id}
-                                className={currencyUnit === unitData.unit && "text-green-500"}
+                                className={`max-sm:text-sm ${currencyUnit === unitData.unit && "text-green-500"}`}
                                 onClick={() => currencyUnitHandler(unitData.unit, unitData.code)}
                             >
                                 {t(unitData.text)}
@@ -52,7 +57,7 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
                         ))}
                     </div>
                 </div>
-                <SearchInput setDataHandler={setDataHandler} currencyUnit={currencyUnit}  />
+                <SearchInput setDataHandler={setDataHandler} currencyUnit={currencyUnit}/>
                 <div className='overflow-x-auto'>
                     <CoinTable isLoading={isLoading} error={error} currencyUnit={currencyUnit}
                                currencyCode={currencyCode} coins={coins} setDataHandler={setDataHandler}/>
@@ -64,7 +69,7 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
                                 onClick={() => nextPageHandler("minus")}>{t("previous")}
                         </button>
                         {<button className='border-black dark:border-gray-500'
-                                                   onClick={() => nextPageHandler("minus")}>{+currentPage === 1 ? '-' :  +currentPage - 1}</button>}
+                                 onClick={() => nextPageHandler("minus")}>{+currentPage === 1 ? '-' : +currentPage - 1}</button>}
                         <button className='border-gray-500 dark:border-light-color'>{+currentPage}</button>
                         <button className='border-black dark:border-gray-500'
                                 onClick={() => nextPageHandler("plus")}>{+currentPage + 1}</button>
@@ -77,4 +82,4 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
     );
 };
 
-export default LandingPage;
+export default CryptoPage;

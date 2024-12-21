@@ -1,9 +1,20 @@
 import Chart from "../component/Chart.jsx";
 import {isProfitHandler} from "../helper/isProfitHandler.js";
 import {useTranslation} from "react-i18next";
+import {useContext} from "react";
+import {DataProvider} from "../contextApi/provider.js";
+import {useLocation} from "react-router-dom";
+import {useCryptoApi} from "../api/useCryptoApi.js";
+import Loading from "../component/Loading.jsx";
+import Error from "../component/Error.jsx";
 
-const AboutCurrency = ({data, currencyUnit, currencyCode}) => {
-    const isProfit = isProfitHandler(data.current_price, data.price_change_24h, data.id)
+const AboutCurrency = () => {
+    const {currencyUnit, currencyCode} = useContext(DataProvider);
+    const {data: coins, isLoading, error} = useCryptoApi(currencyUnit, false)
+
+    const location = useLocation().pathname.split("/")[2]
+    const data = coins?.filter((coin) => coin.id === location)[0]
+    const isProfit = isProfitHandler(data?.current_price, data?.price_change_24h, data?.id)
     const currencyMaker = (currency) => {
         return new Intl.NumberFormat(currencyCode, {
             style: "currency",
@@ -13,11 +24,16 @@ const AboutCurrency = ({data, currencyUnit, currencyCode}) => {
         }).format(currency);
     }
     const {t} = useTranslation();
+
+    if (isLoading) return <Loading />
+
+    if (error) return <Error error={error} />
+
     return (
         <div className="flex justify-center items-center">
             <div
                 className="w-3/4 shadow-2xl shadow-black/20 rounded-lg dark:shadow-white/20 overflow-hidden text-center max-sm:w-11/12">
-                <div className="flex items-center p-4 bg-gradient-to-r from-blue-800 to-purple-600">
+                <div dir='ltr' className="flex items-center p-4 bg-gradient-to-r from-blue-800 to-purple-600">
                     <img src={data.image} alt={data.name} className="w-16 h-16 rounded-full mr-4"/>
                     <div>
                         <h1 className="text-xl font-bold">

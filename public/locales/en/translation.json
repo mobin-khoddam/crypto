@@ -1,5 +1,10 @@
 {
+  "welcome": "Welcome to the cryptocurrency monitoring website!",
+  "get start": "Start here to explore cryptocurrencies",
+  "enter button": "Go to Website",
   "home": "Home",
+  "go back": "go back",
+  "currencies list": "currency list",
   "title": "List of digital currencies",
   "subTitle": "List of digital currencies",
   "US currency": "US currency",

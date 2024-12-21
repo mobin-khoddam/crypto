@@ -1,9 +1,15 @@
 import Header from "./component/Header/Header.jsx";
-import LandingPage from "./pages/LandingPage.jsx";
-import {useEffect, useRef, useState} from "react";
+import CryptoPage from "./pages/./CryptoPage.jsx";
+import {createContext, useEffect, useRef, useState} from "react";
 import AboutCurrency from "./pages/AboutCurrency.jsx";
 import '../public/locales/translator.js'
 import {useTranslation} from "react-i18next";
+import {RouterProvider} from "react-router-dom";
+import {router} from "./routes.jsx";
+import ContextProvider from "./contextApi/ContextProvider.jsx";
+
+
+
 
 export const App = () => {
     const [darkMode, setDarkMode] = useState(!!localStorage.getItem("darkMode"));
@@ -48,19 +54,23 @@ export const App = () => {
             langRef.current.style.direction = "ltr"
         }
     })
+
     return (
         <div
             ref={langRef}
             className={`${darkMode && 'dark'} w-full bg-light-color dark:bg-dark-color duration-300 dark:text-light-color`}>
             <div className='p-6 max-w-[1440px] min-h-screen mx-auto overflow-x-auto'>
                 <div className='mt-[100px]'>
-                    <Header landingPageHandler={landingPageHandler} darkMode={darkMode} setDarkMode={darkModeHandler}/>
-                    {
-                        page === 1 ?
-                            <LandingPage currencyUnit={currencyUnit} currencyCode={currencyCode} currencyUnitHandler={currencyUnitHandler} setDataHandler={setDataHandler}/>
-                            :
-                            <AboutCurrency currencyUnit={currencyUnit} currencyCode={currencyCode} data={data}/>
-                    }
+                    <ContextProvider value={{currencyUnitHandler, setDataHandler, currencyUnit, currencyCode, darkMode, landingPageHandler, darkModeHandler }}>
+                        <RouterProvider  router={router} />
+                    </ContextProvider>
+                    {/*{*/}
+                    {/*    page === 1 ?*/}
+                    {/*        <CryptoPage currencyUnit={currencyUnit} currencyCode={currencyCode}*/}
+                    {/*                     currencyUnitHandler={currencyUnitHandler} setDataHandler={setDataHandler}/>*/}
+                    {/*        :*/}
+                    {/*        <AboutCurrency currencyUnit={currencyUnit} currencyCode={currencyCode} data={data}/>*/}
+                    {/*}*/}
                 </div>
             </div>
         </div>
