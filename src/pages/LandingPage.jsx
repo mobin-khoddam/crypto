@@ -3,6 +3,7 @@ import axios from "axios";
 import CoinTable from "../component/CoinTable.jsx";
 import {useState} from "react";
 import SearchInput from "../component/SearchInput.jsx";
+import {useTranslation} from "react-i18next";
 
 const coinApi = async (unit, page) => {
     const res = await axios.get(`https://api.coingecko.com/api/v3/coins/markets`, {
@@ -18,10 +19,10 @@ const coinApi = async (unit, page) => {
 }
 
 const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currencyCode}) => {
-    const [morePage, setMorePage] = useState(localStorage.getItem("page") || 1);
+    const [currentPage, setCurrentPage] = useState(localStorage.getItem("page") || 1);
 
     const {data: coins, error, isLoading} = useQuery(
-        ["coinApi-marketData", currencyUnit, morePage], () => coinApi(currencyUnit, morePage),
+        ["coinApi-marketData", currencyUnit, currentPage], () => coinApi(currencyUnit, currentPage),
         {
             cacheTime: 1000 * 60 * 10,
             staleTime: 1000 * 60 * 5,
@@ -38,24 +39,24 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
 
     const nextPageHandler = (newPage) => {
         if (newPage === "plus" ) {
-            const nextPage = +morePage + 1
-            setMorePage(nextPage)
+            const nextPage = +currentPage + 1
+            setCurrentPage(nextPage)
             localStorage.setItem("page", nextPage.toString())
-        } else if (newPage === "minus" && +morePage !== 1) {
-            const prevPage = +morePage - 1;
-            setMorePage(prevPage)
+        } else if (newPage === "minus" && +currentPage !== 1) {
+            const prevPage = +currentPage - 1;
+            setCurrentPage(prevPage)
             localStorage.setItem("page", prevPage.toString())
         }
     }
 
+    const {t} = useTranslation();
     return (
         <>
             <div>
                 <div className="mb-6 flex items-center justify-between max-[900px]:flex-col gap-10 max-[900px]:items-start">
                     <div>
-                        <h1 className="dark:text-white font-semibold text-2xl">List of digital currencies</h1>
-                        <h2 className="text-gray-500">Price table of digital currency market leaders
-                            (tokens)</h2>
+                        <h1 className="dark:text-white font-semibold text-2xl">{t("title")}</h1>
+                        <h2 className="text-gray-500">{t("subTitle")}</h2>
                     </div>
                     <div
                         className='[&>button]:border-gray-500 dark:[&>button]:border-light-color [&>button]:border [&>button]:rounded-lg [&>button]:p-2 active:[&>button]:scale-95 [&>button]:duration-150 flex items-center gap-4'>
@@ -65,7 +66,7 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
                                 className={currencyUnit === unitData.unit && "text-green-500"}
                                 onClick={() => currencyUnitHandler(unitData.unit, unitData.code)}
                             >
-                                {unitData.text}
+                                {t(unitData.text)}
                             </button>
                         ))}
                     </div>
@@ -79,15 +80,15 @@ const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currenc
                     <div
                         className='text-xl flex items-center gap-4 [&>button]:border [&>button]:rounded-md [&>button]:py-1 [&>button]:px-2 my-6 justify-center '>
                         <button className='text-red-400 border-gray-500 dark:border-light-color'
-                                onClick={() => nextPageHandler("minus")}>prev
+                                onClick={() => nextPageHandler("minus")}>{t("previous")}
                         </button>
                         {<button className='border-black dark:border-gray-500'
-                                                   onClick={() => nextPageHandler("minus")}>{+morePage === 1 ? '-' :  +morePage - 1}</button>}
-                        <button className='border-gray-500 dark:border-light-color'>{+morePage}</button>
+                                                   onClick={() => nextPageHandler("minus")}>{+currentPage === 1 ? '-' :  +currentPage - 1}</button>}
+                        <button className='border-gray-500 dark:border-light-color'>{+currentPage}</button>
                         <button className='border-black dark:border-gray-500'
-                                onClick={() => nextPageHandler("plus")}>{+morePage + 1}</button>
+                                onClick={() => nextPageHandler("plus")}>{+currentPage + 1}</button>
                         <button className='text-green-400 border-gray-500 dark:border-light-color'
-                                onClick={() => nextPageHandler('plus')}>next
+                                onClick={() => nextPageHandler('plus')}>{t("next")}
                         </button>
                     </div>}
             </div>

@@ -2,16 +2,19 @@ import Chart from "./Chart.jsx";
 import Loading from "./Loading.jsx";
 import Error from "./Error.jsx";
 import {isProfitHandler} from "../helper/isProfitHandler.js";
+import {useTranslation} from "react-i18next";
 
 const CoinTable = ({coins, currencyUnit, currencyCode, isLoading, error, setDataHandler}) => {
+
+    const {t} = useTranslation();
 
     return (
         <div className='min-w-[1010px]'>
             <ul className='grid grid-cols-4 mb-6'>
-                <li>currency name</li>
-                <li>{`price (${currencyUnit})`}</li>
-                <li>Changes</li>
-                <li>Chart of changes</li>
+                <li>{t("currency name")}</li>
+                <li>{t("price") + ` (${currencyUnit})`}</li>
+                <li>{t("changes")}</li>
+                <li>{t("Chart of changes")}</li>
             </ul>
             {isLoading ? <Loading/> :
                 error ? <Error error={error}/> :
@@ -25,7 +28,8 @@ const CoinTable = ({coins, currencyUnit, currencyCode, isLoading, error, setData
                             }).format(coin.current_price);
                             const profitOrLoss = isProfitHandler(coin.current_price, coin.price_change_24h, coin.id);
                             return (
-                                <button onClick={() => setDataHandler(coin)} className="grid grid-cols-4 my-2 text-start"
+                                <button onClick={() => setDataHandler(coin)}
+                                        className="grid grid-cols-4 my-2 text-start"
                                         key={coin.id}>
                                     <div className='flex items-center gap-4'>
                                         <img className="w-10" src={coin.image} alt={coin.name}/>

@@ -3,6 +3,7 @@ import axios from "axios";
 import {useQuery} from "react-query";
 import {useState} from "react";
 import Fuse from "fuse.js";
+import {useTranslation} from "react-i18next";
 
 const searchData = async (unit) => {
     const res = await axios.get("https://api.coingecko.com/api/v3/coins/markets", {
@@ -48,13 +49,15 @@ const SearchInput = ({currencyUnit, setDataHandler}) => {
         }
     }
 
+    const {t} = useTranslation();
+
     return (
         <div className='w-[280px] relative flex items-center my-10'>
             <input onKeyDown={(e) => openCloseHandler(e.key)} onChange={(e) => searchValueHandler(e.target.value)}
                    value={searchValue}
                    className='w-full text-sm p-2 rounded-md outline-[#F06292] text-dark-color' type="text"
-                   placeholder='Search for cryptocurrencies...'/>
-            <img onClick={searchCoin} className='absolute right-1 w-7 h-7 cursor-pointer' src={searchIcon} alt=""/>
+                   placeholder={t("search crypto")}/>
+            {/*<img onClick={searchCoin} className='absolute right-1 w-7 h-7 cursor-pointer' src={searchIcon} alt=""/>*/}
             {
                 filteredCoins.length !== 0 &&
                 <div

@@ -1,8 +1,9 @@
 import Header from "./component/Header/Header.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import AboutCurrency from "./pages/AboutCurrency.jsx";
-
+import '../public/locales/translator.js'
+import {useTranslation} from "react-i18next";
 
 export const App = () => {
     const [darkMode, setDarkMode] = useState(!!localStorage.getItem("darkMode"));
@@ -38,11 +39,21 @@ export const App = () => {
         setCurrencyCode(code);
     }
 
+    const {i18n} = useTranslation();
+    const langRef = useRef(null);
+    useEffect(() => {
+        if (i18n.language === "fa") {
+            langRef.current.style.direction = "rtl"
+        } else {
+            langRef.current.style.direction = "ltr"
+        }
+    })
     return (
         <div
+            ref={langRef}
             className={`${darkMode && 'dark'} w-full bg-light-color dark:bg-dark-color duration-300 dark:text-light-color`}>
             <div className='p-6 max-w-[1440px] min-h-screen mx-auto overflow-x-auto'>
-                <div className='mt-[70px]'>
+                <div className='mt-[100px]'>
                     <Header landingPageHandler={landingPageHandler} darkMode={darkMode} setDarkMode={darkModeHandler}/>
                     {
                         page === 1 ?
