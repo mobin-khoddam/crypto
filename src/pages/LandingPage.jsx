@@ -1,34 +1,15 @@
-import {useQuery} from "react-query";
-import axios from "axios";
 import CoinTable from "../component/CoinTable.jsx";
 import {useState} from "react";
 import SearchInput from "../component/SearchInput.jsx";
 import {useTranslation} from "react-i18next";
+import {useCryptoApi} from "../api/useCryptoApi.js";
 
-const coinApi = async (unit, page) => {
-    const res = await axios.get(`https://api.coingecko.com/api/v3/coins/markets`, {
-        params: {
-            vs_currency: unit,
-            per_page: 10,
-            page: page,
-            order: "market_cap_desc",
-            sparkline: true,
-        },
-    });
-    return res.data;
-}
+
 
 const LandingPage = ({setDataHandler, currencyUnitHandler, currencyUnit, currencyCode}) => {
     const [currentPage, setCurrentPage] = useState(localStorage.getItem("page") || 1);
 
-    const {data: coins, error, isLoading} = useQuery(
-        ["coinApi-marketData", currencyUnit, currentPage], () => coinApi(currencyUnit, currentPage),
-        {
-            cacheTime: 1000 * 60 * 10,
-            staleTime: 1000 * 60 * 5,
-        }
-    );
-
+    const {data: coins, error, isLoading} = useCryptoApi(currencyUnit, currentPage);
 
 
     const currencyUnitData = [

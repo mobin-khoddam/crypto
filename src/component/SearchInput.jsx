@@ -4,27 +4,15 @@ import {useQuery} from "react-query";
 import {useState} from "react";
 import Fuse from "fuse.js";
 import {useTranslation} from "react-i18next";
+import {useCryptoApi} from "../api/useCryptoApi.js";
 
-const searchData = async (unit) => {
-    const res = await axios.get("https://api.coingecko.com/api/v3/coins/markets", {
-        params: {
-            vs_currency: unit,
-            order: "market_cap_desc",
-            sparkline: true,
-        }
-    })
-    return res.data;
-}
 
 const SearchInput = ({currencyUnit, setDataHandler}) => {
     const [searchValue, setSearchValue] = useState("");
     const [filteredCoins, setFilteredCoins] = useState([]);
 
-    const {data: coins} = useQuery(["search", currencyUnit], () => searchData(currencyUnit), {
-        cacheTime: 1000 * 60 * 10,
-        staleTime: 1000 * 60 * 5,
-    })
 
+    const {data: coins} = useCryptoApi(currencyUnit, false)
 
     const searchCoin = () => {
         const fuse = new Fuse(coins, {
