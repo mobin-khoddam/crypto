@@ -1,5 +1,5 @@
 import Links from "./Links.jsx";
-import mergerIcon from '/src/assets/burger.png'
+import mergerIcon from '/src/assets/burgerBlue.png'
 
 const MobileDrawer = () => {
   return (

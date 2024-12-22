@@ -42,7 +42,7 @@ const SearchInput = ({currencyUnit}) => {
         <div className='w-[280px] max-w-full relative flex items-center my-10'>
             <input onKeyDown={(e) => openCloseHandler(e.key)} onChange={(e) => searchValueHandler(e.target.value)}
                    value={searchValue}
-                   className='w-full p-2 rounded-md outline-[#F06292] text-dark-color placeholder:text-gray-600 border border-dark-color' type="text"
+                   className='w-full p-2 rounded-md outline-[#03B8FF] text-dark-color placeholder:text-gray-600 border border-dark-color' type="text"
                    placeholder={t("search crypto")}/>
             {
                 filteredCoins.length !== 0 &&

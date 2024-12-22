@@ -33,7 +33,7 @@ const AboutCurrency = () => {
         <div className="flex justify-center items-center">
             <div
                 className="w-3/4 shadow-2xl shadow-black/20 rounded-lg dark:shadow-white/20 overflow-hidden text-center max-sm:w-11/12">
-                <div dir='ltr' className="flex items-center p-4 bg-gradient-to-r from-blue-800 to-purple-600">
+                <div dir='ltr' className="flex items-center p-4 bg-gradient-to-r from-[#03B8FF]/50 to-purple-600/50">
                     <img src={data.image} alt={data.name} className="w-16 h-16 rounded-full mr-4"/>
                     <div>
                         <h1 className="text-xl font-bold">

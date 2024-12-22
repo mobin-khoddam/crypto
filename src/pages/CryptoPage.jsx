@@ -49,7 +49,7 @@ const CryptoPage = () => {
                         {currencyUnitData.map(unitData => (
                             <button
                                 key={unitData.id}
-                                className={`max-sm:text-sm bg-[#F79413]/20 ${currencyUnit === unitData.unit && "text-green-500"}`}
+                                className={`max-sm:text-sm ${currencyUnit === unitData.unit ? "bg-[#03B8FF]/50" : "bg-[#03B8FF]/20"}`}
                                 onClick={() => currencyUnitHandler(unitData.unit, unitData.code)}
                             >
                                 {t(unitData.text)}
@@ -65,16 +65,16 @@ const CryptoPage = () => {
                 {isLoading ? null : error ? null :
                     <div
                         className='text-xl flex items-center gap-4 [&>button]:border [&>button]:rounded-md [&>button]:py-1 [&>button]:px-2 my-6 justify-center '>
-                        <button className='text-red-400 border-gray-500 dark:border-light-color'
-                                onClick={() => nextPageHandler("minus")}>{t("previous")}
+                        <button className='bg-[#03B8FF]/20 border-gray-600 dark:border-light-color font-bold'
+                                onClick={() => nextPageHandler("minus")}>{'<'}
                         </button>
-                        {<button className='border-black dark:border-gray-500'
+                        {<button className='border-black dark:border-gray-600'
                                  onClick={() => nextPageHandler("minus")}>{+currentPage === 1 ? '-' : +currentPage - 1}</button>}
-                        <button className='border-gray-500 dark:border-light-color'>{+currentPage}</button>
-                        <button className='border-black dark:border-gray-500'
+                        <button className='border-gray-600 dark:border-light-color bg-[#03B8FF]/10'>{+currentPage}</button>
+                        <button className='border-black dark:border-gray-600'
                                 onClick={() => nextPageHandler("plus")}>{+currentPage + 1}</button>
-                        <button className='text-green-400 border-gray-500 dark:border-light-color'
-                                onClick={() => nextPageHandler('plus')}>{t("next")}
+                        <button className='bg-[#03B8FF]/20 border-gray-600 font-bold dark:border-light-color'
+                                onClick={() => nextPageHandler('plus')}>{'>'}
                         </button>
                     </div>}
             </div>
