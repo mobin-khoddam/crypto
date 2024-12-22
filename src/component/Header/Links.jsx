@@ -2,6 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useContext} from "react";
 import {DataProvider} from "../../contextApi/provider.js";
+import icon from '/src/assets/Bitcoin.svg.png'
 
 const Links = () => {
     const {t} = useTranslation();
@@ -12,7 +13,7 @@ const Links = () => {
           <span className='text-[#F79413]'>
               CoinSphere
               </span>
-          <img src="/src/assets/Bitcoin.svg.png" className='w-8' alt=""/>
+          <img src={icon} className='w-8' alt=""/>
           <Link to='/' onClick={landingPageHandler}
                 className='font-semibold border-b-2 border-blue-500 duration-0'>{t("home")}
           </Link>
