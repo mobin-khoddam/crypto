@@ -3,7 +3,6 @@ import {useTranslation} from "react-i18next";
 import translate from '/src/assets/img.png'
 import {useContext} from "react";
 import {DataProvider} from "../../contextApi/provider.js";
-import {Link, useNavigate} from "react-router-dom";
 import MobileDrawer from "./MobileDrawer.jsx";
 import DesktopHeader from "./DesktopHeader.jsx";
 

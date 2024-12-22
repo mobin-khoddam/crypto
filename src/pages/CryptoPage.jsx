@@ -8,7 +8,7 @@ import {DataProvider} from "../contextApi/provider.js";
 
 
 const CryptoPage = () => {
-    const {setDataHandler, currencyUnitHandler, currencyUnit, currencyCode} = useContext(DataProvider)
+    const {currencyUnitHandler, currencyUnit, currencyCode} = useContext(DataProvider)
 
     const [currentPage, setCurrentPage] = useState( useLocation().pathname.split('/')[2] || 1);
 
@@ -57,10 +57,10 @@ const CryptoPage = () => {
                         ))}
                     </div>
                 </div>
-                <SearchInput setDataHandler={setDataHandler} currencyUnit={currencyUnit}/>
+                <SearchInput currencyUnit={currencyUnit}/>
                 <div className='overflow-x-auto'>
                     <CoinTable isLoading={isLoading} error={error} currencyUnit={currencyUnit}
-                               currencyCode={currencyCode} coins={coins} setDataHandler={setDataHandler}/>
+                               currencyCode={currencyCode} coins={coins} />
                 </div>
                 {isLoading ? null : error ? null :
                     <div

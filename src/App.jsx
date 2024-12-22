@@ -1,7 +1,4 @@
-import Header from "./component/Header/Header.jsx";
-import CryptoPage from "./pages/./CryptoPage.jsx";
-import {createContext, useEffect, useRef, useState} from "react";
-import AboutCurrency from "./pages/AboutCurrency.jsx";
+import {useEffect, useRef, useState} from "react";
 import '../public/locales/translator.js'
 import {useTranslation} from "react-i18next";
 import {RouterProvider} from "react-router-dom";
@@ -15,8 +12,6 @@ export const App = () => {
     const [darkMode, setDarkMode] = useState(!!localStorage.getItem("darkMode"));
     const [currencyUnit, setCurrencyUnit] = useState(localStorage.getItem("currencyUnit") || "usd");
     const [currencyCode, setCurrencyCode] = useState(localStorage.getItem("currenCode") || "en-US");
-    const [page, setPage] = useState(1);
-    const [data, setData] = useState({});
 
     console.log(darkMode);
     const darkModeHandler = () => {
@@ -29,14 +24,6 @@ export const App = () => {
         }
     }
 
-    const setDataHandler = (data) => {
-        setData(data);
-        setPage(2);
-    }
-
-    const landingPageHandler = () => {
-        setPage(1);
-    }
 
     const currencyUnitHandler = (unit, code) => {
         localStorage.setItem("currencyUnit", unit);
@@ -61,7 +48,7 @@ export const App = () => {
             className={`${darkMode && 'dark'} w-full bg-light-color dark:bg-dark-color duration-300 dark:text-light-color`}>
             <div className='p-6 max-w-[1440px] min-h-screen mx-auto overflow-x-auto'>
                 <div className='mt-[100px]'>
-                    <ContextProvider value={{currencyUnitHandler, setDataHandler, currencyUnit, currencyCode, darkMode, landingPageHandler, darkModeHandler }}>
+                    <ContextProvider value={{currencyUnitHandler, currencyUnit, currencyCode, darkMode, darkModeHandler }}>
                         <RouterProvider  router={router} />
                     </ContextProvider>
                     {/*{*/}

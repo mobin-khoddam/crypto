@@ -1,6 +1,4 @@
-import searchIcon from "../assets/icons-search.png";
-import axios from "axios";
-import {useQuery} from "react-query";
+
 import {useState} from "react";
 import Fuse from "fuse.js";
 import {useTranslation} from "react-i18next";
@@ -8,7 +6,7 @@ import {useCryptoApi} from "../api/useCryptoApi.js";
 import {Link} from "react-router-dom";
 
 
-const SearchInput = ({currencyUnit, setDataHandler}) => {
+const SearchInput = ({currencyUnit}) => {
     const [searchValue, setSearchValue] = useState("");
     const [filteredCoins, setFilteredCoins] = useState([]);
 
@@ -46,7 +44,6 @@ const SearchInput = ({currencyUnit, setDataHandler}) => {
                    value={searchValue}
                    className='w-full text-sm p-2 rounded-md outline-[#F06292] text-dark-color' type="text"
                    placeholder={t("search crypto")}/>
-            {/*<img onClick={searchCoin} className='absolute right-1 w-7 h-7 cursor-pointer' src={searchIcon} alt=""/>*/}
             {
                 filteredCoins.length !== 0 &&
                 <div
@@ -55,7 +52,7 @@ const SearchInput = ({currencyUnit, setDataHandler}) => {
                           className='text-red-500 cursor-pointer font-bold ml-auto sticky top-0 bg-white w-full text-end p-2 text-xl'>X</span>
                     {
                         filteredCoins.map(coin => (
-                            <Link to={`/${coin.item.id}`} className='flex justify-between ' key={coin.item.id}>
+                            <Link to={`/currency/${coin.item.id}`} className='flex justify-between ' key={coin.item.id}>
                                 <img className='w-7' src={coin.item.image} alt=""/>
                                 <span className='text-black'>{coin.item.id}</span>
                             </Link>

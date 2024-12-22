@@ -5,7 +5,7 @@ import {isProfitHandler} from "../helper/isProfitHandler.js";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
-const CoinTable = ({coins, currencyUnit, currencyCode, isLoading, error, setDataHandler}) => {
+const CoinTable = ({coins, currencyUnit, currencyCode, isLoading, error}) => {
 
     const {t} = useTranslation();
 
@@ -29,7 +29,7 @@ const CoinTable = ({coins, currencyUnit, currencyCode, isLoading, error, setData
                             }).format(coin.current_price);
                             const profitOrLoss = isProfitHandler(coin.current_price, coin.price_change_24h, coin.id);
                             return (
-                                <Link to={`/Currency/${coin.id}`} onClick={() => setDataHandler(coin)}
+                                <Link to={`/Currency/${coin.id}`}
                                         className="grid grid-cols-4 my-2 text-start"
                                         key={coin.id}>
                                     <div className='flex items-center gap-4'>
