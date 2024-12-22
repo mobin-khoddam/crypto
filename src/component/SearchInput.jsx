@@ -39,15 +39,15 @@ const SearchInput = ({currencyUnit}) => {
     const {t} = useTranslation();
 
     return (
-        <div className='w-[280px] max-w-full flex items-center my-10'>
+        <div className='w-[280px] max-w-full relative flex items-center my-10'>
             <input onKeyDown={(e) => openCloseHandler(e.key)} onChange={(e) => searchValueHandler(e.target.value)}
                    value={searchValue}
-                   className='w-full text-sm p-2 rounded-md outline-[#F06292] text-dark-color placeholder:text-gray-600 border border-dark-color' type="text"
+                   className='w-full p-2 rounded-md outline-[#F06292] text-dark-color placeholder:text-gray-600 border border-dark-color' type="text"
                    placeholder={t("search crypto")}/>
             {
                 filteredCoins.length !== 0 &&
                 <div
-                    className='bg-white absolute top-10 rounded-md w-full p-4 pt-0 flex flex-col gap-2 max-h-[300px] overflow-auto'>
+                    className='bg-white absolute top-14 rounded-md w-full p-4 pt-0 flex flex-col gap-2 max-h-[300px] overflow-auto'>
                     <span onClick={() => searchValueHandler("")}
                           className='text-red-500 cursor-pointer font-bold ml-auto sticky top-0 bg-white w-full text-end p-2 text-xl'>X</span>
                     {

@@ -31,7 +31,7 @@ const Header = () => {
                 </div>
                 <HeaderDarkModeIcon darkMode={darkMode} setDarkMode={darkModeHandler}/>
             </div>
-            <span className='absolute bottom-0 h-[2px] w-full bg-dark-color dark:bg-light-color'></span>
+            <span className='absolute bottom-0 left-0 h-[2px] w-full bg-dark-color dark:bg-light-color'></span>
         </div>
     )
 }
