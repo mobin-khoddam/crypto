@@ -49,7 +49,7 @@ const CryptoPage = () => {
                         {currencyUnitData.map(unitData => (
                             <button
                                 key={unitData.id}
-                                className={`max-sm:text-sm ${currencyUnit === unitData.unit && "text-green-500"}`}
+                                className={`max-sm:text-sm bg-[#F79413]/20 ${currencyUnit === unitData.unit && "text-green-500"}`}
                                 onClick={() => currencyUnitHandler(unitData.unit, unitData.code)}
                             >
                                 {t(unitData.text)}
