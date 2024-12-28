@@ -7,11 +7,11 @@ import {useLocation} from "react-router-dom";
 import {useCryptoApi} from "../api/useCryptoApi.js";
 import Loading from "../component/Loading.jsx";
 import Error from "../component/Error.jsx";
+import ApexChart from "../component/ApexChart.jsx";
 
 const AboutCurrency = () => {
     const {currencyUnit, currencyCode} = useContext(DataProvider);
     const {data: coins, isLoading, error} = useCryptoApi(currencyUnit, false)
-
     const location = useLocation().pathname.split("/")[2]
     const data = coins?.filter((coin) => coin.id === location)[0]
     const isProfit = isProfitHandler(data?.current_price, data?.price_change_24h, data?.id)
@@ -89,11 +89,12 @@ const AboutCurrency = () => {
 
                 <div className="p-4 bg-gray-100 text-gray-700">
                     <h2 className="text-lg font-semibold mb-2">{t("Additional Information")}</h2>
-                    <div className='flex items-center justify-between gap-4 max-lg:flex-col'>
-                        <div className='max-lg:w-full overflow-x-auto pr-4 flex justify-center items-start'>
-                            <Chart bigChart={true} data={data.sparkline_in_7d.price.slice(-100)}
+                    <div className='flex items-center justify-between gap-4 flex-col w-full'>
+                        <div className='max-lg:w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
+                            {/* <Chart bigChart={true} data={data.sparkline_in_7d.price.slice(-100)}
                                    profitColor={isProfit.style} width={350}
-                                   height={130}/>
+                                   height={130}/> */}
+                                   <ApexChart coin={data} />
                         </div>
                         <div>
                             <p>

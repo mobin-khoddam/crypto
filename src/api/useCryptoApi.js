@@ -17,7 +17,7 @@ const coinApi = async (unit, page) => {
 export const useCryptoApi = (unit, page) => {
     return useQuery(['coinApi', unit, page], () => coinApi(unit, page),
         {
-            cacheTime: 1000 * 60 * 5,
-            staleTime: 1000 * 60 * 2,
+            cacheTime: 1000 * 60 * 2,
+            staleTime: 1000 * 60 ,
         })
 }

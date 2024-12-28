@@ -3,8 +3,8 @@ import {LineChart, Line, YAxis, XAxis} from 'recharts';
 
 const Chart = ({profitColor, data, width, height, bigChart}) => {
 
-    const chartDataMaker = data.map(data => ({
-        price: data
+    const chartDataMaker = data.map(item => ({
+        price: item
     }));
 
     return (
@@ -18,7 +18,7 @@ const Chart = ({profitColor, data, width, height, bigChart}) => {
                     :
                     <YAxis domain={['auto']} tick={false} axisLine={false} hide={true}/>
             }
-            <Line type="number" dataKey="price" stroke={profitColor} dot={false} strokeWidth={bigChart && 2}/>
+            <Line type="number" dataKey="price" stroke={profitColor} dot={false} />
         </LineChart>
     );
 };

@@ -1,4 +1,4 @@
-import CoinTable from "../component/CoinTable.jsx";
+import CoinTable from "../component/coinTable/CoinTable.jsx";
 import {useContext, useState} from "react";
 import SearchInput from "../component/SearchInput.jsx";
 import {useTranslation} from "react-i18next";
