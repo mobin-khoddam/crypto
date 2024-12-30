@@ -4,19 +4,18 @@ import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
-    .use(HttpApi) // برای بارگذاری فایل‌های ترجمه
-    .use(LanguageDetector) // تشخیص زبان مرورگر
-    .use(initReactI18next) // ادغام با React
+    .use(HttpApi)
+    .use(LanguageDetector)
+    .use(initReactI18next)
     .init({
-        supportedLngs: ["en", "fa"], // زبان‌های پشتیبانی‌شده
-        fallbackLng: "en", // زبان پیش‌فرض
-        debug: true, // برای دیباگ در حالت توسعه
+        supportedLngs: ["en", "fa"],
+        fallbackLng: "en",
+        debug: true,
         interpolation: {
-            escapeValue: false, // برای جلوگیری از مشکلات XSS
+            escapeValue: false,
         },
         backend: {
-            loadPath: "/locales/{{lng}}/translation.json", // مسیر فایل‌های ترجمه
+            loadPath: "/locales/{{lng}}/translation.json",
         },
     });
 
-export default i18n;

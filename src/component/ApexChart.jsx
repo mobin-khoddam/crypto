@@ -1,13 +1,8 @@
 import Chart from "react-apexcharts";
-import {useEffect, useRef, useState} from "react";
-import useSocket from "../api/useSocket.js";
 import {useCandlesticks} from "../api/useCandlesticks.js";
-import Loading from "./Loading.jsx";
 
 const ApexChart = ({coin}) => {
     const {data: candle, isLoading, error} = useCandlesticks(coin.symbol.toUpperCase())
-    const data = useSocket();
-    const [state, setState] = useState([]);
 
     const options = {
         chart: {
@@ -41,8 +36,6 @@ const ApexChart = ({coin}) => {
     };
 
 
-    console.log(candle)
-
     if (error) return
 
     if (isLoading) return
@@ -59,31 +52,6 @@ const ApexChart = ({coin}) => {
         }
     })
 
-    console.log(candleData)
-
-    // useEffect(() => {
-    //     if (data.event === "update") {
-    //         const last = +data.result.o;
-    //         const high24 = +data.result.h;
-    //         const low24 = +data.result.l;
-    //         const lowAsk = +data.result.c;
-    //         const time = data.time;
-    //
-    //         const obj = {
-    //             x: time,
-    //             y: [lowAsk, high24, low24, last],
-    //         };
-    //
-    //
-    //         setState((prev) => {
-    //             if (prev[prev.length - 1]?.x !== obj.x) {
-    //                 return [...prev, obj].slice(-60);
-    //             } else {
-    //                 return prev;
-    //             }
-    //         });
-    //     }
-    // }, [data]);
 
 
     const series = [

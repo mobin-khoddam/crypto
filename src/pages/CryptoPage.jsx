@@ -1,6 +1,6 @@
 import CoinTable from "../component/coinTable/CoinTable.jsx";
 import {useContext, useState} from "react";
-import SearchInput from "../component/SearchInput.jsx";
+import SearchInput from "../component/SearchInput/SearchInput.jsx";
 import {useTranslation} from "react-i18next";
 import {useCryptoApi} from "../api/useCryptoApi.js";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -8,19 +8,12 @@ import {DataProvider} from "../contextApi/provider.js";
 
 
 const CryptoPage = () => {
-    const {currencyUnitHandler, currencyUnit, currencyCode} = useContext(DataProvider)
+    const {currencyCode} = useContext(DataProvider)
 
     const [currentPage, setCurrentPage] = useState( useLocation().pathname.split('/')[2] || 1);
 
-    const {data: coins, error, isLoading} = useCryptoApi(currencyUnit, currentPage);
-    const location = useLocation().pathname.split('/')
-    console.log(location)
+    const {data: coins, error, isLoading} = useCryptoApi(currentPage);
     const navigate = useNavigate();
-    const currencyUnitData = [
-        {id: 3, unit: 'usd', code: 'en-US', text: 'US currency'},
-        {id: 1, unit: 'gbp', code: 'en-GB', text: 'British currency'},
-        {id: 2, unit: 'eur', code: 'de-DE', text: 'European currency'},
-    ];
 
     const nextPageHandler = (newPage) => {
         if (newPage === "plus") {
@@ -46,20 +39,11 @@ const CryptoPage = () => {
                     </div>
                     <div
                         className='[&>button]:border-gray-500 dark:[&>button]:border-light-color [&>button]:border [&>button]:rounded-lg [&>button]:p-2 active:[&>button]:scale-95 [&>button]:duration-150 flex items-center gap-4'>
-                        {currencyUnitData.map(unitData => (
-                            <button
-                                key={unitData.id}
-                                className={`max-sm:text-sm ${currencyUnit === unitData.unit ? "bg-[#03B8FF]/50" : "bg-[#03B8FF]/20"}`}
-                                onClick={() => currencyUnitHandler(unitData.unit, unitData.code)}
-                            >
-                                {t(unitData.text)}
-                            </button>
-                        ))}
                     </div>
                 </div>
-                <SearchInput currencyUnit={currencyUnit}/>
+                <SearchInput/>
                 <div className='overflow-x-auto'>
-                    <CoinTable isLoading={isLoading} error={error} currencyUnit={currencyUnit}
+                    <CoinTable isLoading={isLoading} error={error}
                                currencyCode={currencyCode} coins={coins} />
                 </div>
                 {isLoading ? null : error ? null :

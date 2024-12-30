@@ -10,10 +10,7 @@ import ContextProvider from "./contextApi/ContextProvider.jsx";
 
 export const App = () => {
     const [darkMode, setDarkMode] = useState(!!localStorage.getItem("darkMode"));
-    const [currencyUnit, setCurrencyUnit] = useState(localStorage.getItem("currencyUnit") || "usd");
-    const [currencyCode, setCurrencyCode] = useState(localStorage.getItem("currenCode") || "en-US");
 
-    console.log(darkMode);
     const darkModeHandler = () => {
         if (darkMode) {
             localStorage.setItem("darkMode", "")
@@ -25,12 +22,6 @@ export const App = () => {
     }
 
 
-    const currencyUnitHandler = (unit, code) => {
-        localStorage.setItem("currencyUnit", unit);
-        localStorage.setItem("currenCode", code);
-        setCurrencyUnit(unit);
-        setCurrencyCode(code);
-    }
 
     const {i18n} = useTranslation();
     const langRef = useRef(null);
@@ -48,16 +39,9 @@ export const App = () => {
             className={`${darkMode && 'dark'} w-full bg-light-color dark:bg-dark-color duration-300 dark:text-light-color`}>
             <div className='p-6 max-w-[1440px] min-h-screen mx-auto overflow-x-auto'>
                 <div className='mt-[100px]'>
-                    <ContextProvider value={{currencyUnitHandler, currencyUnit, currencyCode, darkMode, darkModeHandler }}>
+                    <ContextProvider value={{darkMode, darkModeHandler }}>
                         <RouterProvider  router={router} />
                     </ContextProvider>
-                    {/*{*/}
-                    {/*    page === 1 ?*/}
-                    {/*        <CryptoPage currencyUnit={currencyUnit} currencyCode={currencyCode}*/}
-                    {/*                     currencyUnitHandler={currencyUnitHandler} setDataHandler={setDataHandler}/>*/}
-                    {/*        :*/}
-                    {/*        <AboutCurrency currencyUnit={currencyUnit} currencyCode={currencyCode} data={data}/>*/}
-                    {/*}*/}
                 </div>
             </div>
         </div>

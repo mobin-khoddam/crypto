@@ -2,14 +2,13 @@
 import {useState} from "react";
 import Fuse from "fuse.js";
 import {useTranslation} from "react-i18next";
-import {useCryptoApi} from "../api/useCryptoApi.js";
-import {Link} from "react-router-dom";
+import {useCryptoApi} from "../../api/useCryptoApi.js";
+import SearchInputCoins from "./searchInputCoins.jsx";
 
 
 const SearchInput = ({currencyUnit}) => {
     const [searchValue, setSearchValue] = useState("");
     const [filteredCoins, setFilteredCoins] = useState([]);
-
 
     const {data: coins} = useCryptoApi(currencyUnit, false)
 
@@ -52,10 +51,7 @@ const SearchInput = ({currencyUnit}) => {
                           className='text-red-500 cursor-pointer font-bold ml-auto sticky top-0 bg-white w-full text-end p-2 text-xl'>X</span>
                     {
                         filteredCoins.map(coin => (
-                            <Link to={`/currency/${coin.item.id}`} className='flex justify-between ' key={coin.item.id}>
-                                <img className='w-7' src={coin.item.image} alt=""/>
-                                <span className='text-black'>{coin.item.id}</span>
-                            </Link>
+                            <SearchInputCoins coin={coin} key={coin.id} />
                         ))
                     }
                 </div>

@@ -1,8 +1,4 @@
-import Chart from "../component/Chart.jsx";
-import {isProfitHandler} from "../helper/isProfitHandler.js";
 import {useTranslation} from "react-i18next";
-import {useContext} from "react";
-import {DataProvider} from "../contextApi/provider.js";
 import {useLocation} from "react-router-dom";
 import {useCryptoApi} from "../api/useCryptoApi.js";
 import Loading from "../component/Loading.jsx";
@@ -10,19 +6,9 @@ import Error from "../component/Error.jsx";
 import ApexChart from "../component/ApexChart.jsx";
 
 const AboutCurrency = () => {
-    const {currencyUnit, currencyCode} = useContext(DataProvider);
-    const {data: coins, isLoading, error} = useCryptoApi(currencyUnit, false)
+    const {data: coins, isLoading, error} = useCryptoApi(false)
     const location = useLocation().pathname.split("/")[2]
     const data = coins?.filter((coin) => coin.id === location)[0]
-    const isProfit = isProfitHandler(data?.current_price, data?.price_change_24h, data?.id)
-    const currencyMaker = (currency) => {
-        return new Intl.NumberFormat(currencyCode, {
-            style: "currency",
-            currency: currencyUnit,
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        }).format(currency);
-    }
     const {t} = useTranslation();
 
     if (isLoading) return <Loading />
@@ -47,25 +33,25 @@ const AboutCurrency = () => {
                     <h2 className="text-lg font-semibold mb-2">{t("market data")}</h2>
                     <div className="grid grid-cols-2 gap-4 max-[1070px]:grid-cols-1">
                         <p>
-                            <span className="font-semibold">{t("Current Price")}:</span> {currencyMaker(data.current_price)}
+                            <span className="font-semibold">{t("Current Price")}:</span> {(data.current_price)}
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("market capitalization")}:</span> {currencyMaker(data.market_cap).toLocaleString()}
+                                className="font-semibold">{t("market capitalization")}:</span> {(data.market_cap).toLocaleString()}
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("highest price 24")}:</span> {currencyMaker(data.high_24h)}
+                                className="font-semibold">{t("highest price 24")}:</span> {(data.high_24h)}
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("lowest price 24")}:</span> {currencyMaker(data.low_24h)}
+                                className="font-semibold">{t("lowest price 24")}:</span> {(data.low_24h)}
                         </p>
                         <p>
-                            <span className="font-semibold">{t("all time high")} (ATH):</span> {currencyMaker(data.ath)}
+                            <span className="font-semibold">{t("all time high")} (ATH):</span> {(data.ath)}
                         </p>
                         <p>
-                            <span className="font-semibold">{t("all time low")} (ATL):</span> {currencyMaker(data.atl)}
+                            <span className="font-semibold">{t("all time low")} (ATL):</span> {(data.atl)}
                         </p>
                         <p>
                             <span className="font-semibold">{t("maximums supply")}:</span>{" "}
@@ -78,7 +64,7 @@ const AboutCurrency = () => {
                         <p>
                             <span
                                 className="font-semibold">{t("price change last 24")}:</span> {data.price_change_24h.toFixed(2)}
-                            <span className='uppercase'>{currencyUnit}</span>
+                            <span className='uppercase'></span>
                         </p>
                         <p>
                             <span
@@ -91,9 +77,6 @@ const AboutCurrency = () => {
                     <h2 className="text-lg font-semibold mb-2">{t("Additional Information")}</h2>
                     <div className='flex items-center justify-between gap-4 flex-col w-full'>
                         <div className='max-lg:w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
-                            {/* <Chart bigChart={true} data={data.sparkline_in_7d.price.slice(-100)}
-                                   profitColor={isProfit.style} width={350}
-                                   height={130}/> */}
                                    <ApexChart coin={data} />
                         </div>
                         <div>

@@ -16,7 +16,6 @@ const useSocket = (data) => {
 
         socket.onmessage = (data) => {
             const result = (JSON.parse(data.data));
-            console.log(result)
             const update = result.event === "update" && result
             setSocketData(update);
         }

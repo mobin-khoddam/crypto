@@ -3,7 +3,7 @@ const HeaderDarkModeIcon = ({darkMode, setDarkMode}) => {
 
   return (
       <label className="rounded-full swap swap-rotate h-fit">
-          <input onChange={(e) => {setDarkMode(); console.log(e.target.value)}} checked={darkMode} type="checkbox"/>
+          <input onChange={setDarkMode} checked={darkMode} type="checkbox"/>
 
           <svg
               className="swap-on h-10 w-10 fill-current"
