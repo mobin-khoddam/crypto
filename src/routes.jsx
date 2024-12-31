@@ -1,10 +1,10 @@
-import {createBrowserRouter, createHashRouter} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import CryptoPage from "./pages/./CryptoPage.jsx";
 import AboutCurrency from "./pages/AboutCurrency.jsx";
 import Header from "./component/Header/Header.jsx";
 import HomePage from "./pages/HomePage.jsx";
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
     {
       path: '/',
       element: (
