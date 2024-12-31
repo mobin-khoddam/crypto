@@ -88,7 +88,7 @@ console.log(socket)
                 <div className="p-4 bg-gray-100 text-gray-700">
                     <h2 className="text-lg font-semibold mb-2">{t("Additional Information")}</h2>
                     <div className='flex items-center justify-between gap-4 flex-col w-full'>
-                        <div className='max-lg:w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
+                        <div className='w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
                                    <ApexChart coin={data} />
                         </div>
                         <div>

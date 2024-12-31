@@ -6,6 +6,10 @@ const ApexChart = ({coin}) => {
 
     const options = {
         chart: {
+            zoom: {
+                enabled: false
+            },
+            responsive: true,
             height: 350,
             width: '100%',
             type: 'candlesticks',
@@ -18,6 +22,7 @@ const ApexChart = ({coin}) => {
             text: '',
         },
         xaxis: {
+
             type: "datetime",
             format: 'YYYY-MM-DD HH:mm:ss',
             labels: {
