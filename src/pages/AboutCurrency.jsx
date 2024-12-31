@@ -4,6 +4,7 @@ import {useCryptoApi} from "../api/useCryptoApi.js";
 import Loading from "../component/Loading.jsx";
 import Error from "../component/Error.jsx";
 import ApexChart from "../component/ApexChart.jsx";
+import useSocket from "../api/useSocket.js";
 
 const AboutCurrency = () => {
     const {data: coins, isLoading, error} = useCryptoApi(false)
@@ -11,6 +12,17 @@ const AboutCurrency = () => {
     const data = coins?.filter((coin) => coin.id === location)[0]
     const {t} = useTranslation();
 
+    const socket = useSocket(data?.symbol.toUpperCase());
+
+    const numberFormat = (currency) => {
+        if (isNaN(currency)) return ''
+        return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2,
+        }).format(currency).replace('USD', 'USDT')
+    }
+console.log(socket)
     if (isLoading) return <Loading />
 
     if (error) return <Error error={error} />
@@ -33,7 +45,7 @@ const AboutCurrency = () => {
                     <h2 className="text-lg font-semibold mb-2">{t("market data")}</h2>
                     <div className="grid grid-cols-2 gap-4 max-[1070px]:grid-cols-1">
                         <p>
-                            <span className="font-semibold">{t("Current Price")}:</span> {(data.current_price)}
+                            <span className="font-semibold">{t("Current Price")}:</span> {(numberFormat(socket.result?.last))}
                         </p>
                         <p>
                             <span
@@ -41,17 +53,17 @@ const AboutCurrency = () => {
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("highest price 24")}:</span> {(data.high_24h)}
+                                className="font-semibold">{t("highest price 24")}:</span> {(numberFormat(socket.result?.high_24h))}
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("lowest price 24")}:</span> {(data.low_24h)}
+                                className="font-semibold">{t("lowest price 24")}:</span> {(numberFormat(socket.result?.low_24h))}
                         </p>
                         <p>
-                            <span className="font-semibold">{t("all time high")} (ATH):</span> {(data.ath)}
+                            <span className="font-semibold">{t("all time high")} (ATH):</span> {(numberFormat(data.ath))}
                         </p>
                         <p>
-                            <span className="font-semibold">{t("all time low")} (ATL):</span> {(data.atl)}
+                            <span className="font-semibold">{t("all time low")} (ATL):</span> {(numberFormat(data.atl))}
                         </p>
                         <p>
                             <span className="font-semibold">{t("maximums supply")}:</span>{" "}
@@ -63,12 +75,12 @@ const AboutCurrency = () => {
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("price change last 24")}:</span> {data.price_change_24h.toFixed(2)}
+                                className="font-semibold">{t("price change last 24")}:</span> {numberFormat(data.price_change_24h)}
                             <span className='uppercase'></span>
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("percentage change last 24")}:</span> {data.price_change_percentage_24h.toFixed(2)}%
+                                className="font-semibold">{t("percentage change last 24")}:</span> {(data.price_change_percentage_24h).toFixed(2)}%
                         </p>
                     </div>
                 </div>
@@ -90,7 +102,7 @@ const AboutCurrency = () => {
                             </p>
                             <p>
                             <span
-                                className="font-semibold">{t("Last Updated")} :</span> {new Date(data.last_updated).toLocaleString()}
+                                className="font-semibold">{t("Last Updated")} :</span> {new Date(data.last_updated).toLocaleDateString()}
                             </p>
                         </div>
                     </div>

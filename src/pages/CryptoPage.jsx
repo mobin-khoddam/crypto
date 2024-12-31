@@ -1,16 +1,14 @@
 import CoinTable from "../component/coinTable/CoinTable.jsx";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import SearchInput from "../component/SearchInput/SearchInput.jsx";
 import {useTranslation} from "react-i18next";
 import {useCryptoApi} from "../api/useCryptoApi.js";
 import {useLocation, useNavigate} from "react-router-dom";
-import {DataProvider} from "../contextApi/provider.js";
 
 
 const CryptoPage = () => {
-    const {currencyCode} = useContext(DataProvider)
 
-    const [currentPage, setCurrentPage] = useState( useLocation().pathname.split('/')[2] || 1);
+    const [currentPage, setCurrentPage] = useState(useLocation().pathname.split('/')[2] || 1);
 
     const {data: coins, error, isLoading} = useCryptoApi(currentPage);
     const navigate = useNavigate();
@@ -44,7 +42,7 @@ const CryptoPage = () => {
                 <SearchInput/>
                 <div className='overflow-x-auto'>
                     <CoinTable isLoading={isLoading} error={error}
-                               currencyCode={currencyCode} coins={coins} />
+                               coins={coins}/>
                 </div>
                 {isLoading ? null : error ? null :
                     <div
@@ -54,7 +52,8 @@ const CryptoPage = () => {
                         </button>
                         {<button className='border-black dark:border-gray-600'
                                  onClick={() => nextPageHandler("minus")}>{+currentPage === 1 ? '-' : +currentPage - 1}</button>}
-                        <button className='border-gray-600 dark:border-light-color bg-[#03B8FF]/10'>{+currentPage}</button>
+                        <button
+                            className='border-gray-600 dark:border-light-color bg-[#03B8FF]/10'>{+currentPage}</button>
                         <button className='border-black dark:border-gray-600'
                                 onClick={() => nextPageHandler("plus")}>{+currentPage + 1}</button>
                         <button className='bg-[#03B8FF]/20 border-gray-600 font-bold dark:border-light-color'

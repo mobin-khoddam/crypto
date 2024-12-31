@@ -26,7 +26,7 @@ const Header = () => {
                     <div tabIndex={0} role="button"><img className='min-w-8 w-8' src={translate} alt=""/></div>
                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                         <li className='text-dark-color' onClick={() => changeLanguage("en")}><a>english</a></li>
-                        <li className='text-dark-color' onClick={() => changeLanguage("fa")}><a>farsi</a></li>
+                        <li className='text-dark-color' onClick={() => changeLanguage("fa")}><a>فارسی</a></li>
                     </ul>
                 </div>
                 <HeaderDarkModeIcon darkMode={darkMode} setDarkMode={darkModeHandler}/>

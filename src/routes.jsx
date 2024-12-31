@@ -1,35 +1,32 @@
-import {createBrowserRouter} from "react-router-dom";
-import CryptoPage from "./pages/./CryptoPage.jsx";
+import { createBrowserRouter } from "react-router-dom";
+import CryptoPage from "./pages/CryptoPage.jsx";
 import AboutCurrency from "./pages/AboutCurrency.jsx";
-import Header from "./component/Header/Header.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import Layout from "./Layout.jsx";
 
 export const router = createBrowserRouter([
     {
-      path: '/',
-      element: (
-          <>
-              <Header />
-              <HomePage />
-          </>
-      ),
+        path: '/',
+        element: (
+            <Layout>
+                <HomePage />
+            </Layout>
+        ),
     },
     {
         path: "/page/:page",
         element: (
-            <>
-                <Header/>
-                <CryptoPage/>
-            </>
+            <Layout>
+                <CryptoPage />
+            </Layout>
         )
     },
     {
         path: "/Currency/:coin",
         element: (
-            <>
-                <Header/>
-                <AboutCurrency/>
-            </>
+            <Layout>
+                <AboutCurrency />
+            </Layout>
         )
     }
-])
+]);

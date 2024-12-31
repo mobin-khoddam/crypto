@@ -23,6 +23,7 @@ const ApexChart = ({coin}) => {
             labels: {
                 style: {
                     colors: "#F5F5F5",
+                    width: '100%'
                 }
             }
         },
@@ -51,8 +52,6 @@ const ApexChart = ({coin}) => {
             ]
         }
     })
-
-
 
     const series = [
         {
