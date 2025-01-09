@@ -9,7 +9,6 @@ import SearchInputCoins from "./searchInputCoins.jsx";
 const SearchInput = () => {
     const [searchValue, setSearchValue] = useState("");
     const [filteredCoins, setFilteredCoins] = useState([]);
-
     const {data: coins} = useCryptoApi(false)
 
     const searchCoin = () => {

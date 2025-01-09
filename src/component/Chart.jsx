@@ -1,7 +1,7 @@
-import {LineChart, Line, YAxis, XAxis} from 'recharts';
+import {LineChart, Line, YAxis} from 'recharts';
 
 
-const Chart = ({profitColor, data, width, height, bigChart}) => {
+const Chart = ({profitColor, data, width, height}) => {
 
     const chartDataMaker = data.map(item => ({
         price: item
@@ -9,16 +9,8 @@ const Chart = ({profitColor, data, width, height, bigChart}) => {
 
     return (
         <LineChart width={width} height={height} data={chartDataMaker}>
-            {
-                bigChart ?
-                    <>
-                        <YAxis domain={['auto']} tick={true} axisLine={true} hide={false} />
-                        <XAxis/>
-                    </>
-                    :
-                    <YAxis domain={['auto']} tick={false} axisLine={false} hide={true}/>
-            }
-            <Line type="number" dataKey="price" stroke={profitColor} dot={false} />
+            <YAxis domain={['auto']} tick={false} axisLine={false} hide={true}/>
+            <Line type="number" dataKey="price" stroke={profitColor} dot={false}/>
         </LineChart>
     );
 };

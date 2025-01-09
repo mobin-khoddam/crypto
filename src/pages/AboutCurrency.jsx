@@ -1,18 +1,12 @@
 import {useTranslation} from "react-i18next";
 import {useLocation} from "react-router-dom";
-import {useCryptoApi} from "../api/useCryptoApi.js";
-import Loading from "../component/Loading.jsx";
-import Error from "../component/Error.jsx";
 import ApexChart from "../component/ApexChart.jsx";
 import useSocket from "../api/useSocket.js";
 
 const AboutCurrency = () => {
-    const {data: coins, isLoading, error} = useCryptoApi(false)
-    const location = useLocation().pathname.split("/")[2]
-    const data = coins?.filter((coin) => coin.id === location)[0]
-    const {t} = useTranslation();
-
+    const data = useLocation().state.coin
     const socket = useSocket(data?.symbol.toUpperCase());
+    const {t} = useTranslation();
 
     const numberFormat = (currency) => {
         if (isNaN(currency)) return ''
@@ -20,12 +14,8 @@ const AboutCurrency = () => {
             style: "currency",
             currency: "USD",
             minimumFractionDigits: 2,
-        }).format(currency).replace('USD', 'USDT')
+        }).format(currency)
     }
-console.log(socket)
-    if (isLoading) return <Loading />
-
-    if (error) return <Error error={error} />
 
     return (
         <div className="flex justify-center items-center">
@@ -45,7 +35,8 @@ console.log(socket)
                     <h2 className="text-lg font-semibold mb-2">{t("market data")}</h2>
                     <div className="grid grid-cols-2 gap-4 max-[1070px]:grid-cols-1">
                         <p>
-                            <span className="font-semibold">{t("Current Price")}:</span> {(numberFormat(socket.result?.last))}
+                            <span
+                                className="font-semibold">{t("Current Price")}:</span> {(numberFormat(socket.result?.last) || numberFormat(data.current_price))}
                         </p>
                         <p>
                             <span
@@ -53,14 +44,15 @@ console.log(socket)
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("highest price 24")}:</span> {(numberFormat(socket.result?.high_24h))}
+                                className="font-semibold">{t("highest price 24")}:</span> {(numberFormat(data?.high_24h))}
                         </p>
                         <p>
                             <span
-                                className="font-semibold">{t("lowest price 24")}:</span> {(numberFormat(socket.result?.low_24h))}
+                                className="font-semibold">{t("lowest price 24")}:</span> {(numberFormat(data?.low_24h))}
                         </p>
                         <p>
-                            <span className="font-semibold">{t("all time high")} (ATH):</span> {(numberFormat(data.ath))}
+                            <span
+                                className="font-semibold">{t("all time high")} (ATH):</span> {(numberFormat(data.ath))}
                         </p>
                         <p>
                             <span className="font-semibold">{t("all time low")} (ATL):</span> {(numberFormat(data.atl))}
@@ -89,7 +81,7 @@ console.log(socket)
                     <h2 className="text-lg font-semibold mb-2">{t("Additional Information")}</h2>
                     <div className='flex items-center justify-between gap-4 flex-col w-full'>
                         <div className='w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
-                                   <ApexChart coin={data} />
+                            <ApexChart coin={data}/>
                         </div>
                         <div>
                             <p>

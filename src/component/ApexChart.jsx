@@ -4,6 +4,9 @@ import {useCandlesticks} from "../api/useCandlesticks.js";
 const ApexChart = ({coin}) => {
     const {data: candle, isLoading, error} = useCandlesticks(coin.symbol.toUpperCase())
 
+    if (error) return
+    if (isLoading) return
+
     const options = {
         chart: {
             zoom: {
@@ -42,10 +45,6 @@ const ApexChart = ({coin}) => {
     };
 
 
-    if (error) return
-
-    if (isLoading) return
-
     const candleData = candle.map(data => {
         return {
             x: data[0],
@@ -64,7 +63,7 @@ const ApexChart = ({coin}) => {
         },
     ];
 
-    return <Chart options={options} series={series} type="candlestick" height={350} width={1012} />;
+    return <Chart options={options} series={series} type="candlestick" height={350} width={1012}/>;
 };
 
 export default ApexChart;

@@ -9,6 +9,6 @@ const candlesticksApi = async (coin) => {
 export const useCandlesticks = (coin) => {
     return useQuery(['candlesticks', coin] , () => candlesticksApi(coin),{
         cacheTime: 1000 * 60 * 2,
-        staleTime: 1000 * 60,
+        staleTime: 1000 * 60 * 2,
     } );
 }

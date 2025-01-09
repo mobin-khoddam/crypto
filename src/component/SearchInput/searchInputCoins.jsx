@@ -1,15 +1,19 @@
-import {Link} from "react-router-dom";
-import useSocket from "../../api/useSocket.js";
+import {useNavigate} from "react-router-dom";
 
 const SearchInputCoins = ({coin}) => {
-    const isSocket = coin.item.symbol.toUpperCase()
-    const socket = useSocket(isSocket);
-    if (socket.event !== "update") return;
+    const navigate = useNavigate();
+    const navigateHandler = () => {
+        navigate(`/currency/${coin.item.id}`, {
+            state: {
+                coin: coin.item
+            }
+        })
+    }
   return (
-      <Link to={`/currency/${coin.item.id}`} className='flex justify-between ' key={coin.item.id}>
+      <button onClick={navigateHandler} className='flex justify-between ' key={coin.item.id}>
           <img className='w-7' src={coin.item.image} alt=""/>
           <span className='text-black'>{coin.item.id}</span>
-      </Link>
+      </button>
   )
 }
 export default SearchInputCoins
