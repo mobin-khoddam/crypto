@@ -50,8 +50,8 @@ const Table = ({coin}) => {
                 </div>
                 <div dir='ltr' className={`font-bold text-lg w-fit`}>
                     {
-                        data.event !== "update" ? <div>$ {numberFormat(coin.high_24h)}</div> :
-                            <h4>{isNaN(price) || `$ ${numberFormat(price)}`}</h4>
+                        data.event !== "update" ? <div>{numberFormat(coin.high_24h)}</div> :
+                            <h4>{isNaN(price) || `${numberFormat(price)}`}</h4>
                     }
 
                 </div>
