@@ -63,7 +63,13 @@ const ApexChart = ({coin}) => {
         },
     ];
 
-    return <Chart options={options} series={series} type="candlestick" height={350} width={1012}/>;
+    return (
+        <div className="w-full overflow-x-auto pb-4">
+            <div className="whitespace-nowrap w-[1500px]">
+                <Chart options={options} series={series} type="candlestick" height={350} />
+            </div>
+        </div>
+    );
 };
 
 export default ApexChart;
