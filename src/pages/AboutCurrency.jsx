@@ -78,11 +78,14 @@ const AboutCurrency = () => {
                 </div>
 
                 <div className="p-4 bg-gray-100 text-gray-700">
-                    <h2 className="text-lg font-semibold mb-2">{t("Additional Information")}</h2>
                     <div className='flex items-center justify-between gap-4 flex-col w-full'>
+                        <h2 className='font-semibold'>
+                            candlestick
+                        </h2>
                         <div className='w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
                             <ApexChart coin={data}/>
                         </div>
+                    <h2 className="text-lg font-semibold ">{t("Additional Information")}</h2>
                         <div>
                             <p>
                             <span

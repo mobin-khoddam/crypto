@@ -7,7 +7,7 @@ const CoinTable = ({coins, isLoading, error}) => {
 
     const {t} = useTranslation();
     return (
-        <div className='min-w-[1010px]'>
+        <div className='min-w-[900px]'>
             <ul className='grid grid-cols-4 mb-6'>
                 <li>{t("currency name")}</li>
                 <li>{t("price") + ` (USDT)`}</li>

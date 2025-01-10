@@ -1,10 +1,11 @@
 import Chart from "react-apexcharts";
 import {useCandlesticks} from "../api/useCandlesticks.js";
+import Loading from "./Loading.jsx";
 
 const ApexChart = ({coin}) => {
     const {data: candle, isLoading, error} = useCandlesticks(coin.symbol.toUpperCase())
 
-    if (error) return
+    if (error) return <Loading />
     if (isLoading) return
 
     const options = {
@@ -12,26 +13,28 @@ const ApexChart = ({coin}) => {
             zoom: {
                 enabled: false
             },
+            toolbar: {
+                show: false,
+            },
+            pan: {
+                enabled: false,
+            },
             responsive: true,
             height: 350,
             width: '100%',
             type: 'candlesticks',
-            toolbar: {
-                show: false,
-            },
             background: '#212121',
         },
         title: {
             text: '',
         },
         xaxis: {
-
             type: "datetime",
             format: 'YYYY-MM-DD HH:mm:ss',
             labels: {
                 style: {
                     colors: "#F5F5F5",
-                    width: '100%'
+                    width: '100%',
                 }
             }
         },
@@ -43,6 +46,7 @@ const ApexChart = ({coin}) => {
             }
         }
     };
+
 
 
     const candleData = candle.map(data => {
