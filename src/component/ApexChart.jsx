@@ -1,11 +1,10 @@
 import Chart from "react-apexcharts";
 import {useCandlesticks} from "../api/useCandlesticks.js";
-import Loading from "./Loading.jsx";
 
 const ApexChart = ({coin}) => {
     const {data: candle, isLoading, error} = useCandlesticks(coin.symbol.toUpperCase())
 
-    if (error) return <Loading />
+    if (error) return
     if (isLoading) return
 
     const options = {
@@ -48,7 +47,6 @@ const ApexChart = ({coin}) => {
     };
 
 
-
     const candleData = candle.map(data => {
         return {
             x: data[0],
@@ -68,7 +66,7 @@ const ApexChart = ({coin}) => {
     ];
 
     return (
-        <div className="w-full overflow-x-auto pb-4">
+        <div className="w-full overflow-x-auto pb-4 scrollbar-none">
             <div className="whitespace-nowrap w-[1012px]">
                 <Chart options={options} series={series} type="candlestick" height={350} />
             </div>
