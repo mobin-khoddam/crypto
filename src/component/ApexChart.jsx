@@ -65,7 +65,7 @@ const ApexChart = ({coin}) => {
 
     return (
         <div className="w-full overflow-x-auto pb-4">
-            <div className="whitespace-nowrap w-[1500px]">
+            <div className="whitespace-nowrap w-[1012px]">
                 <Chart options={options} series={series} type="candlestick" height={350} />
             </div>
         </div>
