@@ -29,11 +29,7 @@ const Table = ({coin}) => {
     const navigation = useNavigate();
 
     const navigationHandler = () => {
-        navigation(`/Currency/${coin.id}`, {
-            state: {
-                coin
-            }
-        })
+        navigation(`/Currency/${coin.symbol}`)
     }
 
     return (

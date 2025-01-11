@@ -1,12 +1,22 @@
 import {useTranslation} from "react-i18next";
-import {useLocation} from "react-router-dom";
-import ApexChart from "../component/ApexChart.jsx";
+import {useParams} from "react-router-dom";
 import useSocket from "../api/useSocket.js";
+import {useCryptoApi} from "../api/useCryptoApi.js";
+import Loading from "../component/Loading.jsx";
+import Error from "../component/Error.jsx";
+import {lazy, Suspense} from "react";
+const Apex = lazy(() => import("../component/ApexChart.jsx"));
 
 const AboutCurrency = () => {
-    const data = useLocation().state.coin
-    const socket = useSocket(data?.symbol.toUpperCase());
+    const params = useParams().coin;
+    const  {data: coin, isLoading, error} = useCryptoApi(false)
     const {t} = useTranslation();
+
+    const data = coin ? coin.filter((item) => item.symbol === params)[0] : []
+    const socket = useSocket(params?.toUpperCase());
+    if (isLoading) return <Loading />
+
+    if (error) return <Error error={error} />
 
     const numberFormat = (currency) => {
         if (isNaN(currency)) return ''
@@ -82,9 +92,9 @@ const AboutCurrency = () => {
                         <h2 className='font-semibold'>
                             candlestick
                         </h2>
-                        <div className='w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
-                            <ApexChart coin={data}/>
-                        </div>
+                        <Suspense className='w-full overflow-x-auto flex justify-center items-start overflow-y-hidden'>
+                            <Apex coin={data}/>
+                        </Suspense>
                     <h2 className="text-lg font-semibold ">{t("Additional Information")}</h2>
                         <div>
                             <p>
