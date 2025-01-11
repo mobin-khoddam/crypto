@@ -38,7 +38,7 @@ export const App = () => {
             ref={langRef}
             className={`${darkMode && 'dark'} w-full bg-light-color dark:bg-dark-color duration-300 dark:text-light-color`}>
             <div className='p-6 max-w-[1440px] min-h-screen mx-auto overflow-x-auto'>
-                <div className='mt-[100px]'>
+                <div className='mt-[100px] min-h-screen'>
                     <ContextProvider value={{darkMode, darkModeHandler }}>
                         <RouterProvider  router={router} />
                     </ContextProvider>

@@ -5,6 +5,7 @@ import {useCryptoApi} from "../api/useCryptoApi.js";
 import Loading from "../component/Loading.jsx";
 import Error from "../component/Error.jsx";
 import {lazy, Suspense} from "react";
+import Toastify from "../component/Toastify.jsx";
 const Apex = lazy(() => import("../component/ApexChart.jsx"));
 
 const AboutCurrency = () => {

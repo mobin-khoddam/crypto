@@ -1,13 +1,14 @@
 import Chart from "react-apexcharts";
 import {useCandlesticks} from "../api/useCandlesticks.js";
+import Loading from "./Loading.jsx";
 import Toastify from "./Toastify.jsx";
 
 const ApexChart = ({coin}) => {
     const {data: candle, isLoading, error} = useCandlesticks(coin.symbol.toUpperCase())
 
 
-    if (error) return <div>{error.message}</div>
-    if (isLoading) return
+    if (error) return <div className='text-red-500'>{error.message} <Toastify /></div>
+    if (isLoading) return <div className='h-10 w-full'><Loading className='mt-0 ' childClass='dark:bg-dark-color' /></div>
 
     const options = {
         chart: {
@@ -68,11 +69,10 @@ const ApexChart = ({coin}) => {
     ];
 
     return (
-        <div className="w-full overflow-x-auto pb-4 scrollbar-none">
+        <div dir='ltr' className="w-full overflow-x-auto pb-4 scrollbar-none">
             <div className="whitespace-nowrap w-[1012px]">
-                <Chart options={options} series={series} type="candlestick" height={350} />
+                <Chart options={options} series={series} type="candlestick" height={330} />
             </div>
-            <Toastify />
         </div>
     );
 };
