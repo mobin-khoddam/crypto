@@ -1,10 +1,10 @@
 import Chart from "react-apexcharts";
-import {useCandlesticks} from "../api/useCandlesticks.js";
+import { useCandlesticks } from "../api/useCandlesticks.js";
 import Loading from "./Loading.jsx";
 import Toastify from "./Toastify.jsx";
 
-const ApexChart = ({coin}) => {
-    const {data: candle, isLoading, error} = useCandlesticks(coin.symbol.toUpperCase())
+const ApexChart = ({ coin }) => {
+    const { data: candle, isLoading, error } = useCandlesticks(coin.symbol.toUpperCase())
 
 
     if (error) return <div className='text-red-500'>{error.message} <Toastify /></div>
