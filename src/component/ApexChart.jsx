@@ -8,7 +8,7 @@ const ApexChart = ({coin}) => {
 
 
     if (error) return <div className='text-red-500'>{error.message} <Toastify /></div>
-    if (isLoading) return <div className='h-10 pb-2 w-full'><Loading className='mt-0 ' childClass='dark:bg-dark-color' /></div>
+    if (isLoading) return <div className='h-20 pb-2 w-full'><Loading className='mt-0 translate-x-0 !static mx-auto' childClass='dark:bg-dark-color' /></div>
 
     const options = {
         chart: {
