@@ -46,7 +46,7 @@ const Table = ({coin}) => {
                 </div>
                 <div dir='ltr' className={`font-bold text-lg w-fit`}>
                     {
-                        data.event !== "update" ? <div>{numberFormat(coin.high_24h)}</div> :
+                        data.event !== "update" ? <div>{numberFormat(coin.current_price)}</div> :
                             <h4>{isNaN(price) || `${numberFormat(price)}`}</h4>
                     }
 
